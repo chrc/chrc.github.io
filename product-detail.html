@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produit - Lumière Douce</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>✨ Lumière Douce</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="products.html" class="active">Boutique</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">
+                    🛒 Panier <span class="cart-count">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <a href="products.html" class="back-link">← Retour à la boutique</a>
+            
+            <div id="product-detail-content" class="product-detail">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products-section">
+        <div class="container">
+            <h2 class="section-title">Produits similaires</h2>
+            <div id="related-products" class="product-grid">
+                <!-- Les produits seront chargés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Lumière Douce</h3>
+                    <p>Des bougies artisanales qui illuminent votre quotidien</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="products.html">Boutique</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Nous suivre</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Pinterest</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lumière Douce. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Charger le détail du produit
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            
+            if (!productId) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            // Afficher le produit
+            const detailContent = document.getElementById('product-detail-content');
+            detailContent.innerHTML = `
+                <div class="product-detail-image">
+                    <div class="product-image-placeholder" style="background: ${product.color};">
+                        <span class="image-icon">🕯️</span>
+                    </div>
+                </div>
+                <div class="product-detail-info">
+                    <h1>${product.name}</h1>
+                    <div class="product-rating">
+                        ⭐⭐⭐⭐⭐ <span>(${product.reviews} avis)</span>
+                    </div>
+                    <p class="product-price">${product.price.toFixed(2)} €</p>
+                    <p class="product-description">${product.description}</p>
+                    
+                    <div class="product-specs">
+                        <h3>Caractéristiques</h3>
+                        <ul>
+                            <li><strong>Parfum :</strong> ${product.scent}</li>
+                            <li><strong>Poids :</strong> ${product.weight}</li>
+                            <li><strong>Durée :</strong> ${product.burnTime}</li>
+                            <li><strong>Composition :</strong> ${product.composition}</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn" id="decrease-qty">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button class="qty-btn" id="increase-qty">+</button>
+                        </div>
+                        <button class="btn btn-primary btn-large" id="add-to-cart-btn">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    
+                    <div class="product-benefits">
+                        <div class="benefit">✓ Livraison gratuite dès 50€</div>
+                        <div class="benefit">✓ Retour gratuit sous 30 jours</div>
+                        <div class="benefit">✓ Garantie satisfaction</div>
+                    </div>
+                </div>
+            `;
+
+            // Gestion de la quantité
+            const qtyInput = document.getElementById('quantity');
+            const decreaseBtn = document.getElementById('decrease-qty');
+            const increaseBtn = document.getElementById('increase-qty');
+
+            decreaseBtn.addEventListener('click', () => {
+                if (qtyInput.value > 1) {
+                    qtyInput.value = parseInt(qtyInput.value) - 1;
+                }
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                if (qtyInput.value < 10) {
+                    qtyInput.value = parseInt(qtyInput.value) + 1;
+                }
+            });
+
+            // Ajouter au panier
+            document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+                const quantity = parseInt(qtyInput.value);
+                addToCart(product.id, quantity);
+                alert(`${quantity} x ${product.name} ajouté${quantity > 1 ? 's' : ''} au panier !`);
+            });
+
+            // Afficher produits similaires
+            const relatedProducts = products
+                .filter(p => p.id !== productId && p.scent === product.scent)
+                .slice(0, 4);
+            
+            const relatedContainer = document.getElementById('related-products');
+            if (relatedProducts.length > 0) {
+                relatedContainer.innerHTML = relatedProducts.map(p => `
+                    <div class="product-card">
+                        <a href="product-detail.html?id=${p.id}">
+                            <div class="product-image" style="background: ${p.color};">
+                                <span class="image-icon">🕯️</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>${p.name}</h3>
+                                <p class="product-scent">${p.scent}</p>
+                                <p class="product-price">${p.price.toFixed(2)} €</p>
+                            </div>
+                        </a>
+                        <button class="btn btn-secondary btn-small" onclick="addToCart(${p.id}); event.preventDefault();">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                document.querySelector('.related-products-section').style.display = 'none';
+            }
+        });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

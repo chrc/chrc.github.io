@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - Lumière Douce</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>✨ Lumière Douce</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="products.html" class="active">Boutique</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">
+                    🛒 Panier <span class="cart-count">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Notre Collection</h1>
+            <p>Découvrez toutes nos bougies artisanales</p>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <h3>Filtres</h3>
+                    
+                    <div class="filter-group">
+                        <h4>Recherche</h4>
+                        <input type="text" id="search-input" placeholder="Rechercher...">
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Parfum</h4>
+                        <label><input type="checkbox" class="filter-scent" value="lavande"> Lavande</label>
+                        <label><input type="checkbox" class="filter-scent" value="vanille"> Vanille</label>
+                        <label><input type="checkbox" class="filter-scent" value="rose"> Rose</label>
+                        <label><input type="checkbox" class="filter-scent" value="eucalyptus"> Eucalyptus</label>
+                        <label><input type="checkbox" class="filter-scent" value="cannelle"> Cannelle</label>
+                        <label><input type="checkbox" class="filter-scent" value="citron"> Citron</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Prix</h4>
+                        <label><input type="radio" name="price" class="filter-price" value="all" checked> Tous</label>
+                        <label><input type="radio" name="price" class="filter-price" value="0-15"> Moins de 15€</label>
+                        <label><input type="radio" name="price" class="filter-price" value="15-25"> 15€ - 25€</label>
+                        <label><input type="radio" name="price" class="filter-price" value="25-40"> 25€ - 40€</label>
+                        <label><input type="radio" name="price" class="filter-price" value="40+"> Plus de 40€</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Taille</h4>
+                        <label><input type="checkbox" class="filter-size" value="petite"> Petite (100g)</label>
+                        <label><input type="checkbox" class="filter-size" value="moyenne"> Moyenne (200g)</label>
+                        <label><input type="checkbox" class="filter-size" value="grande"> Grande (350g)</label>
+                    </div>
+
+                    <button id="clear-filters" class="btn btn-secondary">Réinitialiser</button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="products-main">
+                    <div class="products-header">
+                        <p><span id="product-count">0</span> produits</p>
+                        <select id="sort-select">
+                            <option value="default">Trier par défaut</option>
+                            <option value="price-asc">Prix croissant</option>
+                            <option value="price-desc">Prix décroissant</option>
+                            <option value="name-asc">Nom A-Z</option>
+                            <option value="name-desc">Nom Z-A</option>
+                        </select>
+                    </div>
+                    
+                    <div id="products-container" class="product-grid">
+                        <!-- Les produits seront chargés dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Lumière Douce</h3>
+                    <p>Des bougies artisanales qui illuminent votre quotidien</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="products.html">Boutique</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Nous suivre</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Pinterest</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lumière Douce. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
